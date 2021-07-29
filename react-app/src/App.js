@@ -5,8 +5,10 @@ import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar/";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import LoggedOutRoute from "./components/auth/LoggedOutRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import Splash from "./components/Splash";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import socket from "./socket";
@@ -34,19 +36,22 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path="/login" exact={true}>
+        <LoggedOutRoute path="/" exact={true}>
+          <Splash />
+        </LoggedOutRoute>
+        <LoggedOutRoute path="/login" exact={true}>
           <LoginForm />
-        </Route>
-        <Route path="/sign-up" exact={true}>
+        </LoggedOutRoute>
+        <LoggedOutRoute path="/sign-up" exact={true}>
           <SignUpForm />
-        </Route>
+        </LoggedOutRoute>
         <ProtectedRoute path="/users" exact={true} >
           <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
+        <ProtectedRoute path="/home" exact={true}>
           <h1>My Home Page</h1>
         </ProtectedRoute>
       </Switch>
