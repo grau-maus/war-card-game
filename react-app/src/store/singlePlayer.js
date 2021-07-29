@@ -20,7 +20,7 @@ const drawCardAction = (player, card) => ({
 
 // thunks
 export const newGame = () => async (dispatch) => {
-  // TODO NEW GAME STUFF
+  console.log('hello')
 }
 
 export const foldGame = () => async (dispatch) => {

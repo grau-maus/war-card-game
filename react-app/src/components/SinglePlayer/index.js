@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { drawCard, foldGame, newGame } from "../../store/singlePlayer";
 import Menu from "./Menu";
 import Game from "./Game";
 
@@ -23,16 +22,4 @@ const mapStateToProps = (state) => ({
   gameStarted: state.singlePlayer.gameStarted
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  newGame: () => {
-    dispatch(newGame());
-  },
-  foldGame: () => {
-    dispatch(foldGame());
-  },
-  drawCard: (player) => {
-    dispatch(drawCard(player));
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SinglePlayer);
+export default connect(mapStateToProps, null)(SinglePlayer);

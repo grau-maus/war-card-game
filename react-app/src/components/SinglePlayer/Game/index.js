@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { drawCard, foldGame, newGame } from "../../../store/singlePlayer";
 
 function Game(props) {
   const { user, computerDeck, computerDrawnCard,
@@ -22,4 +24,16 @@ function Game(props) {
   );
 }
 
-export default Game;
+const mapDispatchToProps = (dispatch) => ({
+  newGame: () => {
+    dispatch(newGame());
+  },
+  foldGame: () => {
+    dispatch(foldGame());
+  },
+  drawCard: (player) => {
+    dispatch(drawCard(player));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(Game);

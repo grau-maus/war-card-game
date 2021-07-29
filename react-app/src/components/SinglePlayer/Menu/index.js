@@ -1,14 +1,27 @@
 import React from "react";
+import { connect } from "react-redux";
+import { newGame } from "../../../store/singlePlayer";
 
-function Menu() {
+function Menu(props) {
+  const { newGame } = props;
+  const handleNewGame = () => {
+    newGame();
+  };
+
   return (
     <>
       <h1>--Title--</h1>
       <h3>Score</h3>
-      <button>New Game</button>
+      <button type="button" onClick={handleNewGame}>New Game</button>
       <button>Load Game</button>
     </>
   );
 }
 
-export default Menu;
+const mapDispatchToProps = (dispatch) => ({
+  newGame: () => {
+    dispatch(newGame());
+  }
+});
+
+export default connect(null, mapDispatchToProps)(Menu);
