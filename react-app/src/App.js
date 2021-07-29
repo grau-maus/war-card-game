@@ -10,6 +10,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import Splash from "./components/Splash";
 import Home from "./components/Home";
+import SinglePlayer from "./components/SinglePlayer";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import socket from "./socket";
@@ -46,14 +47,17 @@ function App() {
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
+        <ProtectedRoute path="/home" exact={true}>
+          <Home />
+        </ProtectedRoute>
         <ProtectedRoute path="/users" exact={true} >
           <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/home" exact={true}>
-          <Home />
+        <ProtectedRoute path="/single-player" exact={true} >
+          <SinglePlayer />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
