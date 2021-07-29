@@ -27,6 +27,7 @@ function App() {
     return null;
   }
 
+  // yes it does work
   socket.emit('message', 'does this work')
 
   return (
