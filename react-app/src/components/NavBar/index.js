@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 
-function NavBar() {
+function NavBar(props) {
+  const { user } = props;
+
   return (
     <nav>
       <ul>
@@ -27,11 +30,22 @@ function NavBar() {
           </NavLink>
         </li>
         <li>
-          <LogoutButton />
+          <NavLink to="/single-player" exact={true} activeClassName="active">
+            Single Player
+          </NavLink>
         </li>
+        {Boolean(user) &&
+          <li>
+            <LogoutButton />
+          </li>
+        }
       </ul>
     </nav>
   );
 }
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+  user: state.session.user
+});
+
+export default connect(mapStateToProps, null)(NavBar);
