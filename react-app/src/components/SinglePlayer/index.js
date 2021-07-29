@@ -1,14 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import { drawCard, foldGame, newGame } from "../../store/singlePlayer";
+import Menu from "./Menu";
 
 function SinglePlayer(props) {
   const { user, computerDeck, computerDrawnCard,
     playerDeck, playerDrawnCard, newGame, foldGame,
-    drawCard } = props;
+    drawCard, gameStarted } = props;
 
   return (
     <>
+      {Boolean(!gameStarted) &&
+        <Menu />
+      }
       <h2>{"<"}computer profile image{">"}</h2>
       <h1>computer</h1>
       <h2>deck</h2>
@@ -30,6 +34,7 @@ const mapStateToProps = (state) => ({
   computerDrawnCard: state.singlePlayer.computerDrawnCard,
   playerDeck: state.singlePlayer.playerDeck,
   playerDrawnCard: state.singlePlayer.playerDrawnCard,
+  gameStarted: state.singlePlayer.gameStarted
 });
 
 const mapDispatchToProps = (dispatch) => ({

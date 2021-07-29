@@ -33,6 +33,7 @@ export const drawCard = (player) => async (dispatch) => {
 
 // reducer
 const initialState = {
+  gameStarted: false,
   computerDeck: null,
   computerDrawnCard: null,
   playerDeck: null,
