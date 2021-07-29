@@ -2,28 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { drawCard, foldGame, newGame } from "../../store/singlePlayer";
 import Menu from "./Menu";
+import Game from "./Game";
 
 function SinglePlayer(props) {
-  const { user, computerDeck, computerDrawnCard,
-    playerDeck, playerDrawnCard, newGame, foldGame,
-    drawCard, gameStarted } = props;
+  const { gameStarted } = props;
 
   return (
     <>
-      {Boolean(!gameStarted) &&
-        <Menu />
-      }
-      <h2>{"<"}computer profile image{">"}</h2>
-      <h1>computer</h1>
-      <h2>deck</h2>
-      <h2>drawn card</h2>
-      <h1>-------------------</h1>
-      <h2>drawn card</h2>
-      <h2>deck</h2>
-      <h1>{user.username}</h1>
-      <h2>{"<"}user profile image{">"}</h2>
-      <button>draw</button>
-      <button>fold</button>
+      {Boolean(gameStarted) ? <Game props={props} /> : <Menu />}
     </>
   );
 }
