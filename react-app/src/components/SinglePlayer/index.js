@@ -1,8 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import { drawCard, foldGame, newGame } from "../../store/singlePlayer";
 
 function SinglePlayer(props) {
-  const { user } = props;
+  const { user, computerDeck, computerDrawnCard,
+    playerDeck, playerDrawnCard, newGame, foldGame,
+    drawCard } = props;
 
   return (
     <>
@@ -22,11 +25,23 @@ function SinglePlayer(props) {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.session.user
+  user: state.session.user,
+  computerDeck: state.singlePlayer.computerDeck,
+  computerDrawnCard: state.singlePlayer.computerDrawnCard,
+  playerDeck: state.singlePlayer.playerDeck,
+  playerDrawnCard: state.singlePlayer.playerDrawnCard,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  newGame: () => {
+    dispatch(newGame());
+  },
+  foldGame: () => {
+    dispatch(foldGame());
+  },
+  drawCard: (player) => {
+    dispatch(drawCard(player));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SinglePlayer);
