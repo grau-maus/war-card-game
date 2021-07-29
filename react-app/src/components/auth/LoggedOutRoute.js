@@ -2,18 +2,18 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Route, Redirect } from 'react-router-dom';
 
-function ProtectedRoute(props) {
+function LoggedOutRoute(props) {
   const { user } = props;
 
   return (
     <Route {...props}>
-      {(user) ? props.children : <Redirect to="/" />}
+      {(user) ? <Redirect to="/home" /> : props.children}
     </Route>
   )
-};
+}
 
 const mapStateToProps = (state) => ({
   user: state.session.user
 });
 
-export default connect(mapStateToProps, null)(ProtectedRoute);
+export default connect(mapStateToProps, null)(LoggedOutRoute);

@@ -3,10 +3,14 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar/";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import LoggedOutRoute from "./components/auth/LoggedOutRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import Splash from "./components/Splash";
+import Home from "./components/Home";
+import SinglePlayer from "./components/SinglePlayer";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import socket from "./socket";
@@ -34,20 +38,26 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <LoggedOutRoute path="/" exact={true}>
+          <Splash />
+        </LoggedOutRoute>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
+        <ProtectedRoute path="/home" exact={true}>
+          <Home />
+        </ProtectedRoute>
         <ProtectedRoute path="/users" exact={true} >
           <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true} >
           <User />
         </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true}>
-          <h1>My Home Page</h1>
+        <ProtectedRoute path="/single-player" exact={true} >
+          <SinglePlayer />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

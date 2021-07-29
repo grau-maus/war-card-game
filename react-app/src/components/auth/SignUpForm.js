@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { signUp } from '../../store/session';
 
-const SignUpForm = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
+const SignUpForm = (props) => {
+  const { user, signUp } = props;
+  const history = useHistory();
+  const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,7 +15,12 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      await dispatch(signUp(username, email, password));
+      const data = await signUp(username, email, password);
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+        history.push("/");
+      }
     }
   };
 
@@ -34,12 +40,13 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
-  if (user) {
-    return <Redirect to="/" />;
-  }
-
   return (
     <form onSubmit={onSignUp}>
+      <div>
+        {errors.map((error) => (
+          <div>{error}</div>
+        ))}
+      </div>
       <div>
         <label>User Name</label>
         <input
@@ -82,4 +89,14 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+const mapStateToProps = (state) => ({
+  user: state.session.user
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  signUp: async (username, email, password) => {
+    return await dispatch(signUp(username, email, password));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
