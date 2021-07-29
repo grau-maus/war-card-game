@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function Splash() {
+function Splash() {
   return (
     <>
       <h1>Splash page yo</h1>
     </>
   );
 }
+
+export default Splash;

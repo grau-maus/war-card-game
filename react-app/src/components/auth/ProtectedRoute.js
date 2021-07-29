@@ -1,9 +1,10 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRoute = props => {
-  const user = useSelector(state => state.session.user)
+function ProtectedRoute(props) {
+  const { user } = props;
+
   return (
     <Route {...props}>
       {(user) ? props.children : <Redirect to="/" />}
@@ -11,5 +12,8 @@ const ProtectedRoute = props => {
   )
 };
 
+const mapStateToProps = (state) => ({
+  user: state.session.user
+});
 
-export default ProtectedRoute;
+export default connect(mapStateToProps, null)(ProtectedRoute);

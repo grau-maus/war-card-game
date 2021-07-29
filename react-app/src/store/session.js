@@ -26,7 +26,7 @@ export const authenticate = () => async (dispatch) => {
         return;
     }
     dispatch(setUser(data))
-    
+
 }
 
 export const login = (email, password) => async (dispatch) => {
@@ -41,9 +41,7 @@ export const login = (email, password) => async (dispatch) => {
         })
     });
     const data = await response.json();
-    if (data.errors) {
-        return data;
-    }
+    if (data.errors) return data;
     dispatch(setUser(data));
     return {};
 }
@@ -59,7 +57,7 @@ export const logout = () => async (dispatch) => {
 };
 
 
-export const signUp = (username, email, password) => async (dispatch)=> {
+export const signUp = (username, email, password) => async (dispatch) => {
     const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
@@ -72,14 +70,13 @@ export const signUp = (username, email, password) => async (dispatch)=> {
         }),
     });
     const data = await response.json();
+    if (data.errors) return data;
     dispatch(setUser(data));
+    return {};
 }
 
 // reducer
-
 const initialState = { user: null };
-
-// useSelector(state => state.session.user)
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {

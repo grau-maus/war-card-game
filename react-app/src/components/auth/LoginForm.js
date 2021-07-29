@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import  { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { login } from "../../store/session";
 
-const LoginForm = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
+function LoginForm(props) {
+  const { user, login } = props;
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
+    const data = await login(email, password);
     if (data.errors) {
       setErrors(data.errors);
+    } else {
+      history.push("/");
     }
   };
 
@@ -25,10 +27,6 @@ const LoginForm = () => {
   const updatePassword = (e) => {
     setPassword(e.target.value);
   };
-
-  if (user) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <form onSubmit={onLogin}>
@@ -62,4 +60,14 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+const mapStateToProps = (state) => ({
+  user: state.session.user
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  login: async (email, password) => {
+    return await dispatch(login(email, password));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

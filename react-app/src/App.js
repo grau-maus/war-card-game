@@ -9,6 +9,7 @@ import LoggedOutRoute from "./components/auth/LoggedOutRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import Splash from "./components/Splash";
+import Home from "./components/Home";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import socket from "./socket";
@@ -39,12 +40,12 @@ function App() {
         <LoggedOutRoute path="/" exact={true}>
           <Splash />
         </LoggedOutRoute>
-        <LoggedOutRoute path="/login" exact={true}>
+        <Route path="/login" exact={true}>
           <LoginForm />
-        </LoggedOutRoute>
-        <LoggedOutRoute path="/sign-up" exact={true}>
+        </Route>
+        <Route path="/sign-up" exact={true}>
           <SignUpForm />
-        </LoggedOutRoute>
+        </Route>
         <ProtectedRoute path="/users" exact={true} >
           <UsersList />
         </ProtectedRoute>
@@ -52,7 +53,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/home" exact={true}>
-          <h1>My Home Page</h1>
+          <Home />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
