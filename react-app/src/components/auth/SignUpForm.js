@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { signUp } from '../../store/session';
+import Button from "@material-ui/core/Button";
+import CustomInput from "./CustomInput.js";
+
 
 const SignUpForm = (props) => {
   const { user, signUp } = props;
@@ -49,42 +52,42 @@ const SignUpForm = (props) => {
       </div>
       <div>
         <label>User Name</label>
-        <input
+        <CustomInput
           type="text"
           name="username"
           onChange={updateUsername}
           value={username}
-        ></input>
+        ></CustomInput>
       </div>
       <div>
         <label>Email</label>
-        <input
+        <CustomInput
           type="text"
           name="email"
           onChange={updateEmail}
           value={email}
-        ></input>
+        />
       </div>
       <div>
         <label>Password</label>
-        <input
+        <CustomInput
           type="password"
           name="password"
           onChange={updatePassword}
           value={password}
-        ></input>
+        />
       </div>
       <div>
         <label>Repeat Password</label>
-        <input
+        <CustomInput
           type="password"
           name="repeat_password"
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
-        ></input>
+        />
       </div>
-      <button type="submit">Sign Up</button>
+      <Button type="submit" variant="contained">Sign Up</Button>
     </form>
   );
 };
