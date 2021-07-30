@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../../store/session";
+// import FormControl from "@material-ui/core/FormControl";
+// import InputLabel from "@material-ui/core/InputLabel";
+// import Input from "@material-ui/core/Input";
+import Button from "@material-ui/core/Button";
+import CustomInput from "./CustomInput.js";
 
 function LoginForm(props) {
   const { user, login } = props;
@@ -29,7 +34,7 @@ function LoginForm(props) {
   };
 
   return (
-    <form onSubmit={onLogin}>
+    <form style={{backgroundColor: "white"}}onSubmit={onLogin}>
       <div>
         {errors.map((error) => (
           <div>{error}</div>
@@ -37,7 +42,7 @@ function LoginForm(props) {
       </div>
       <div>
         <label htmlFor="email">Email</label>
-        <input
+        <CustomInput
           name="email"
           type="text"
           placeholder="Email"
@@ -47,14 +52,14 @@ function LoginForm(props) {
       </div>
       <div>
         <label htmlFor="password">Password</label>
-        <input
+        <CustomInput
           name="password"
           type="password"
           placeholder="Password"
           value={password}
           onChange={updatePassword}
         />
-        <button type="submit">Login</button>
+        <Button type="submit" variant="contained">Login</Button>
       </div>
     </form>
   );

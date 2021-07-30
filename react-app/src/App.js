@@ -15,6 +15,7 @@ import SinglePlayer from "./components/SinglePlayer";
 import { authenticate } from "./store/session";
 import socket from "./socket";
 
+
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch()
