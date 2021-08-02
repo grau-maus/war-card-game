@@ -48,7 +48,8 @@ function LoginForm(props) {
           inputProps={{
             value: email,
             onChange: updateEmail,
-            placeholder: "Email"
+            placeholder: "Email",
+            required: true
           }}
         />
       </div>
@@ -60,7 +61,8 @@ function LoginForm(props) {
           inputProps={{
             value: password,
             onChange: updatePassword,
-            placeholder: "Password"
+            placeholder: "Password",
+            required: true
           }}
         />
         <Button type="submit" variant="contained">Login</Button>
