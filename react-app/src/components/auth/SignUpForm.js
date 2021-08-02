@@ -51,21 +51,29 @@ const SignUpForm = (props) => {
         ))}
       </div>
       <div>
-        <label>User Name</label>
+        <label>Username</label>
         <CustomInput
           type="text"
           name="username"
-          onChange={updateUsername}
-          value={username}
-        ></CustomInput>
+          inputProps={{
+            value: username,
+            onChange: updateUsername,
+            placeholder: "cards123",
+            required: true
+          }}
+        />
       </div>
       <div>
         <label>Email</label>
         <CustomInput
           type="text"
           name="email"
-          onChange={updateEmail}
-          value={email}
+          inputProps={{
+            value: email,
+            onChange: updateEmail,
+            placeholder: "cards@cards.io",
+            required: true
+          }}
         />
       </div>
       <div>
@@ -73,8 +81,11 @@ const SignUpForm = (props) => {
         <CustomInput
           type="password"
           name="password"
-          onChange={updatePassword}
-          value={password}
+          inputProps={{
+            value: password,
+            onChange: updatePassword,
+            required: true
+          }}
         />
       </div>
       <div>
@@ -82,9 +93,11 @@ const SignUpForm = (props) => {
         <CustomInput
           type="password"
           name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
+          inputProps={{
+            value: repeatPassword,
+            onChange: updateRepeatPassword,
+            required: true
+          }}
         />
       </div>
       <Button type="submit" variant="contained">Sign Up</Button>

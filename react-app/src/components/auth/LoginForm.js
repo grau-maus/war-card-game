@@ -34,10 +34,10 @@ function LoginForm(props) {
   };
 
   return (
-    <form style={{backgroundColor: "white"}}onSubmit={onLogin}>
+    <form style={{ backgroundColor: "white" }} onSubmit={onLogin}>
       <div>
-        {errors.map((error) => (
-          <div>{error}</div>
+        {errors.map((error, idx) => (
+          <div key={idx}>{error}</div>
         ))}
       </div>
       <div>
@@ -45,9 +45,12 @@ function LoginForm(props) {
         <CustomInput
           name="email"
           type="text"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
+          inputProps={{
+            value: email,
+            onChange: updateEmail,
+            placeholder: "Email",
+            required: true
+          }}
         />
       </div>
       <div>
@@ -55,9 +58,12 @@ function LoginForm(props) {
         <CustomInput
           name="password"
           type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
+          inputProps={{
+            value: password,
+            onChange: updatePassword,
+            placeholder: "Password",
+            required: true
+          }}
         />
         <Button type="submit" variant="contained">Login</Button>
       </div>

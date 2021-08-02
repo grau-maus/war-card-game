@@ -5,8 +5,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
-import LogoutButton from "../auth/LogoutButton";
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
+import { logout } from "../../store/session";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,38 +23,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar(props) {
-  const { user } = props;
+  const { user, logout } = props;
+  const history = useHistory();
   const classes = useStyles();
 
   return (
     <div className={classes.title}>
       <AppBar position="static" className={classes.root}>
         <Toolbar>
-        <Typography variant="h6" className={classes.title}>
-          War
-        </Typography>
-        <ul>
-            <Button to="/" exact={true} activeClassName="active">
-              Home
-            </Button>
-            <Button href="/login" exact={true} activeClassName="active">
-              Login
-            </Button>
-            <Button href="/sign-up" exact={true} activeClassName="active">
-              Sign Up
-            </Button>
-            <Button href="/users" exact={true} activeClassName="active">
-              Users
-            </Button>
-            <Button href="/single-player" exact={true} activeClassName="active">
-              Single Player
-            </Button>
+          <Typography variant="h6" className={classes.title}>
+            War
+          </Typography>
+          <Button className="active" onClick={() => history.push("/")}>
+            Home
+          </Button>
+          <Button className="active" onClick={() => history.push("/login")}>
+            Log in
+          </Button>
+          <Button className="active" onClick={() => history.push("/sign-up")}>
+            Sign Up
+          </Button>
+          <Button className="active" onClick={() => history.push("/users")}>
+            Users
+          </Button>
+          <Button className="active" onClick={() => history.push("/single-player")}>
+            Single Player
+          </Button>
           {Boolean(user) && (
-            <li>
-              <LogoutButton />
-            </li>
+            <Button className="active" onClick={() => logout()}>
+              Log out
+            </Button>
           )}
-        </ul>
         </Toolbar>
       </AppBar>
     </div>
@@ -64,4 +64,10 @@ const mapStateToProps = (state) => ({
   user: state.session.user,
 });
 
-export default connect(mapStateToProps, null)(NavBar);
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => {
+    dispatch(logout());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
