@@ -9,6 +9,14 @@ class Card(db.Model):
     face = db.Column(db.String)
     image = db.Column(db.String)
 
+    # associations
+    card_wars = db.relationship(
+        'War',
+        backref='war_card',
+        cascade='all, delete'
+    )
+
+    # methods
     def to_dict(self):
         return {
             "id": self.id,

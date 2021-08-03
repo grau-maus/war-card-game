@@ -13,6 +13,14 @@ class User(db.Model, UserMixin):
     wins = db.Column(db.Integer, default=0)
     losses = db.Column(db.Integer, default=0)
 
+    # associations
+    user_wars = db.relationship(
+        'War',
+        backref='war_user',
+        cascade='all, delete'
+    )
+
+    # methods / getters / setters
     @property
     def password(self):
         return self.hashed_password
