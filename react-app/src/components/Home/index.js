@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 function Home(props) {
-  const { } = props;
+  // const { } = props;
 
   return (
     <>
