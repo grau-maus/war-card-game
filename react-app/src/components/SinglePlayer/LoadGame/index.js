@@ -37,10 +37,10 @@ function LoadGame(props) {
           </>
         ))
       }
+      <button type="button" onClick={handleGoBack}>Menu</button>
       {Boolean(selectedGame) &&
         <button type="button" onClick={handleLoadGame}>{`Load Game ${selectedGame}`}</button>
       }
-      <button type="button" onClick={handleGoBack}>Menu</button>
     </>
   );
 }
