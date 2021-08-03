@@ -10,7 +10,9 @@ def seed_users():
     demo = User(
         username='Demo',
         email='demo@user.io',
-        password='password'
+        password='password',
+        wins=fake.random_int(min=0, max=500),
+        losses=fake.random_int(min=0, max=500)
     )
 
     db.session.add(demo)
@@ -20,7 +22,9 @@ def seed_users():
         user = User(
             username=user_profile['username'],
             email=user_profile['mail'],
-            password=fake.password(length=10)
+            password=fake.password(length=10),
+            wins=fake.random_int(min=0, max=500),
+            losses=fake.random_int(min=0, max=500)
         )
 
         db.session.add(user)
