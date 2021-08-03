@@ -1,11 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { newGame } from "../../../store/singlePlayer";
+import { newGame, loadGame } from "../../../store/singlePlayer";
 
 function Menu(props) {
-  const { newGame } = props;
+  const { newGame, loadGame } = props;
   const handleNewGame = () => {
     newGame();
+  };
+  const handleLoadGame = () => {
+    loadGame();
   };
 
   return (
@@ -13,7 +16,7 @@ function Menu(props) {
       <h1>--Title--</h1>
       <h3>Score</h3>
       <button type="button" onClick={handleNewGame}>New Game</button>
-      <button>Load Game</button>
+      <button type="button" onClick={handleLoadGame}>Load Game</button>
     </>
   );
 }
@@ -21,6 +24,9 @@ function Menu(props) {
 const mapDispatchToProps = (dispatch) => ({
   newGame: () => {
     dispatch(newGame());
+  },
+  loadGame: () => {
+    dispatch(loadGame());
   }
 });
 

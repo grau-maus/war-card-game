@@ -4,11 +4,11 @@ import Menu from "./Menu";
 import Game from "./Game";
 
 function SinglePlayer(props) {
-  const { gameStarted } = props;
+  const { gameId } = props;
 
   return (
     <>
-      {Boolean(gameStarted) ? <Game props={props} /> : <Menu />}
+      {Boolean(gameId) ? <Game props={props} /> : <Menu />}
     </>
   );
 }
@@ -19,7 +19,7 @@ const mapStateToProps = (state) => ({
   computerDrawnCard: state.singlePlayer.computerDrawnCard,
   playerDeck: state.singlePlayer.playerDeck,
   playerDrawnCard: state.singlePlayer.playerDrawnCard,
-  gameStarted: state.singlePlayer.gameStarted
+  gameId: state.singlePlayer.gameId
 });
 
 export default connect(mapStateToProps, null)(SinglePlayer);

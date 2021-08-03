@@ -14,16 +14,23 @@ class War(db.Model):
     player1_played_card = db.Column(db.String)
     player2_played_card = db.Column(db.String)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "player1": self.player1_id,
+            "player2": self.player2_id
+        }
+
     def p1_deck(self):
         return {
             "id": self.id,
-            "deck": self.player1_deck,
+            "deck": [int(id) for id in self.player1_deck.split(',')],
             "p1PlayedCard": self.player1_played_card
         }
 
     def p2_deck(self):
         return {
             "id": self.id,
-            "deck": self.player2_deck,
+            "deck": [int(id) for id in self.player2_deck.split(',')],
             "p2PlayedCard": self.player2_played_card
         }

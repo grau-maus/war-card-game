@@ -4,9 +4,8 @@ from app.models import db, User
 
 fake = Faker()
 
+
 # Adds a demo user, you can add other users here if you want
-
-
 def seed_users():
     demo = User(
         username='Demo',
