@@ -15,6 +15,7 @@ class War(db.Model):
     player2_played_card = db.Column(db.Integer, db.ForeignKey('cards.id'))
     created_at = db.Column(db.DateTime, default=datetime.now())
 
+    # methods
     def to_dict(self):
         return {
             "id": self.id,
