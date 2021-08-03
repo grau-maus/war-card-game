@@ -11,6 +11,7 @@ import User from "./components/User";
 import Splash from "./components/Splash";
 import Home from "./components/Home";
 import SinglePlayer from "./components/SinglePlayer";
+import LoadGame from "./components/SinglePlayer/LoadGame";
 // import { authenticate } from "./services/auth";
 import { authenticate } from "./store/session";
 import socket from "./socket";
@@ -59,6 +60,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/single-player" exact={true} >
           <SinglePlayer />
+        </ProtectedRoute>
+        <ProtectedRoute path="/load-game" exact={true} >
+          <LoadGame />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

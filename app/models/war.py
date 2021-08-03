@@ -1,6 +1,6 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from datetime import datetime
 
 
 class War(db.Model):
@@ -13,12 +13,12 @@ class War(db.Model):
     player2_deck = db.Column(db.String)
     player1_played_card = db.Column(db.String)
     player2_played_card = db.Column(db.String)
+    created_at = db.Column(db.DateTime, default=datetime.now())
 
     def to_dict(self):
         return {
             "id": self.id,
-            "player1": self.player1_id,
-            "player2": self.player2_id
+            "createdAt": self.created_at
         }
 
     def p1_deck(self):

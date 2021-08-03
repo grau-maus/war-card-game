@@ -1,14 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
-import { newGame, loadGame } from "../../../store/singlePlayer";
+import { useHistory } from "react-router-dom";
+import { newGame } from "../../../store/singlePlayer";
 
 function Menu(props) {
-  const { newGame, loadGame } = props;
+  const { newGame } = props;
+  const history = useHistory();
   const handleNewGame = () => {
     newGame();
   };
   const handleLoadGame = () => {
-    loadGame();
+    history.push("/load-game");
   };
 
   return (
@@ -24,9 +26,6 @@ function Menu(props) {
 const mapDispatchToProps = (dispatch) => ({
   newGame: () => {
     dispatch(newGame());
-  },
-  loadGame: () => {
-    dispatch(loadGame());
   }
 });
 

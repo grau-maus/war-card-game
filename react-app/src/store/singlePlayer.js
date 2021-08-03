@@ -2,9 +2,12 @@
 const NEW_GAME = "singlePlayer/NEW_GAME";
 const FOLD_GAME = "singlePlayer/FOLD_GAME";
 const DRAW_CARD = "singlePlayer/DRAW_CARD";
+const LOAD_ALL_GAMES = "singlePlayer/LOAD_ALL_GAMES";
+const CLEAR_SAVED_GAMES = "singlePlayer/CLEAR_SAVED_GAMES";
+const CLEAR_CURRENT_GAME = "singlePlayer/CLEAR_CURRENT_GAME";
 
 // actions
-const newGameAction = (data) => ({
+export const newGameAction = (data) => ({
   type: NEW_GAME,
   payload: data
 });
@@ -18,11 +21,23 @@ const drawCardAction = (player, card) => ({
   payload: { player, card }
 });
 
+const loadAllGamesAction = (games) => ({
+  type: LOAD_ALL_GAMES,
+  payload: games
+});
+
+export const clearSavedGamesAction = () => ({
+  type: CLEAR_SAVED_GAMES
+});
+
+export const clearCurrentGameAction = () => ({
+  type: CLEAR_CURRENT_GAME
+});
+
 // thunks
 export const newGame = () => async (dispatch) => {
-  const response = await fetch("/api/singleplayer/", { method: 'POST' });
+  const response = await fetch("/api/singleplayer/newgame/", { method: "POST" });
   if (response.ok) {
-    // array of card objects
     const data = await response.json();
     dispatch(newGameAction(data));
   }
@@ -36,24 +51,32 @@ export const drawCard = (player) => async (dispatch) => {
   // TODO DRAW CARD FOR PLAYER
 }
 
-export const loadGame = () => async (dispatch) => {
-  // TODO LOAD GAME FOR PLAYER
-  console.log('in thunk')
+export const loadAllGames = () => async (dispatch) => {
+  const response = await fetch("/api/singleplayer/loadgame/", { method: "POST" });
+  if (response.ok) {
+    const loadedGames = await response.json();
+    dispatch(loadAllGamesAction(loadedGames));
+  }
 }
 
 // reducer
 const initialState = {
   gameId: null,
-  computerDeck: null,
   computerDrawnCard: null,
-  playerDeck: null,
   playerDrawnCard: null,
+  savedGames: null
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case NEW_GAME:
       return { ...state, gameId: action.payload.id };
+    case LOAD_ALL_GAMES:
+      return { ...state, savedGames: action.payload };
+    case CLEAR_SAVED_GAMES:
+      return { ...state, savedGames: null };
+    case CLEAR_CURRENT_GAME:
+      return { ...state, gameId: null };
     default:
       return state;
   }

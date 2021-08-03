@@ -8,7 +8,7 @@ fake = Faker()
 single_player_routes = Blueprint('singleplayer', __name__)
 
 
-@single_player_routes.route('/', methods=['POST'])
+@single_player_routes.route('/newgame/', methods=['POST'])
 @login_required
 def new_game():
     cards = Card.query.all()
@@ -29,3 +29,15 @@ def new_game():
     db.session.add(new_war)
     db.session.commit()
     return new_war.to_dict()
+
+
+@single_player_routes.route('/loadgame/', methods=['POST'])
+@login_required
+def load_game():
+    games = War.query.filter(
+        War.player1_id == current_user.id,
+        War.player2_id == None
+    ).order_by(War.id.desc()).all()
+    json_games = [game.to_dict() for game in games]
+
+    return jsonify(json_games)

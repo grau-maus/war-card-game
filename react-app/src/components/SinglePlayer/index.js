@@ -8,7 +8,7 @@ function SinglePlayer(props) {
 
   return (
     <>
-      {Boolean(gameId) ? <Game props={props} /> : <Menu />}
+      {Boolean(gameId) ? <Game game={props} /> : <Menu />}
     </>
   );
 }
