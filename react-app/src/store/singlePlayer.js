@@ -47,8 +47,16 @@ export const foldGame = () => async (dispatch) => {
   // TODO GIVE UP GAME
 }
 
-export const drawCard = (player) => async (dispatch) => {
-  // TODO DRAW CARD FOR PLAYER
+export const drawCard = (gameId) => async (dispatch) => {
+  const response = await fetch("/api/singleplayer/draw/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ game_id: gameId })
+  });
+  if (response.ok) {
+    const data = await response.json();
+    console.log('got data', data);
+  }
 }
 
 export const loadAllGames = () => async (dispatch) => {

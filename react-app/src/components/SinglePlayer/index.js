@@ -15,9 +15,7 @@ function SinglePlayer(props) {
 
 const mapStateToProps = (state) => ({
   user: state.session.user,
-  computerDeck: state.singlePlayer.computerDeck,
   computerDrawnCard: state.singlePlayer.computerDrawnCard,
-  playerDeck: state.singlePlayer.playerDeck,
   playerDrawnCard: state.singlePlayer.playerDrawnCard,
   gameId: state.singlePlayer.gameId
 });
