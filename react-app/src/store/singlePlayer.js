@@ -47,11 +47,13 @@ export const foldGame = () => async (dispatch) => {
   // TODO GIVE UP GAME
 }
 
-export const drawCard = (gameId) => async (dispatch) => {
+export const drawCard = ({ gameId, userId }) => async (dispatch) => {
+  const form = new FormData();
+  form.append("game_id", gameId);
+  form.append("user_id", userId);
   const response = await fetch("/api/singleplayer/draw/", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ game_id: gameId })
+    body: form
   });
   if (response.ok) {
     const data = await response.json();

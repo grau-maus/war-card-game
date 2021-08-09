@@ -7,6 +7,13 @@ function Game(props) {
     newGame, foldGame, drawCard, saveGame } = props;
   const { user, gameId } = game;
 
+  const handleDrawCard = ({ gameId, userId }) => {
+    drawCard({ gameId, userId });
+    setTimeout(() => {
+      drawCard({ gameId, userId: null });
+    }, 1000);
+  };
+
   return (
     <>
       <h1>{gameId}</h1>
@@ -19,7 +26,7 @@ function Game(props) {
       <h2>picture of a deck</h2>
       <h1>{user.username}</h1>
       <h2>{"<"}user profile image{">"}</h2>
-      <button type="button" onClick={() => drawCard(gameId)}>draw</button>
+      <button type="button" onClick={() => handleDrawCard({ gameId, userId: user.id })}>draw</button>
       <button>fold</button>
       <button type="button" onClick={() => saveGame()}>save game</button>
     </>

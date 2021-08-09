@@ -1,8 +1,8 @@
-from enum import unique
+from faker import Faker
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Card, War
-from faker import Faker
+from app.services.tools import parse_rank_to_int, skirmish
 
 fake = Faker()
 single_player_routes = Blueprint('singleplayer', __name__)
@@ -46,29 +46,25 @@ def load_game():
 @single_player_routes.route('/draw/', methods=['POST'])
 @login_required
 def draw_card():
-    game = War.query.get(request.json['game_id'])
+    game = War.query.get(request.form['game_id'])
     player1_deck = game.player1_deck.split(',')
     player2_deck = game.player2_deck.split(',')
     player1_played_card = Card.query.get(int(player1_deck.pop()))
     player2_played_card = Card.query.get(int(player2_deck.pop()))
-    player1_card_value = int(player1_played_card.face.split('-')[0])
-    player2_card_value = int(player2_played_card.face.split('-')[0])
+    player1_card_value = parse_rank_to_int(
+        player1_played_card.face.split('-')[0])
+    player2_card_value = parse_rank_to_int(
+        player2_played_card.face.split('-')[0])
 
     if player1_card_value > player2_card_value:
-        player1_deck.append(str(player1_played_card.id))
-        player1_deck.append(str(player2_played_card.id))
-        player1_deck = fake.random_elements(
-            elements=player1_deck,
-            length=len(player1_deck),
-            unique=True
+        player1_deck = skirmish(
+            player1_deck,
+            [player1_played_card.id, player2_played_card.id]
         )
     elif player1_card_value < player2_card_value:
-        player2_deck.append(str(player1_played_card.id))
-        player2_deck.append(str(player2_played_card.id))
-        player2_deck = fake.random_elements(
-            elements=player2_deck,
-            length=len(player2_deck),
-            unique=True
+        player2_deck = skirmish(
+            player2_deck,
+            [player2_played_card.id, player1_played_card.id]
         )
     else:
         player1_draw_3_face_down = []
@@ -82,11 +78,11 @@ def draw_card():
                     player2_draw_3_face_down.append(player2_deck.pop())
             if len(player1_deck) > 0:
                 player1_played_card = Card.query.get(int(player1_deck.pop()))
-                player1_card_value = int(
+                player1_card_value = parse_rank_to_int(
                     player1_played_card.face.split('-')[0])
             if len(player2_deck) > 0:
                 player2_played_card = Card.query.get(int(player2_deck.pop()))
-                player2_card_value = int(
+                player2_card_value = parse_rank_to_int(
                     player2_played_card.face.split('-')[0])
 
             if player1_card_value > player2_card_value:
@@ -94,25 +90,19 @@ def draw_card():
                     player1_deck.append(card_id)
                 for card_id in player2_draw_3_face_down:
                     player1_deck.append(card_id)
-                player1_deck.append(str(player1_played_card.id))
-                player1_deck.append(str(player2_played_card.id))
-                player1_deck = fake.random_elements(
-                    elements=player1_deck,
-                    length=len(player1_deck),
-                    unique=True
+                player1_deck = skirmish(
+                    player1_deck,
+                    [player1_played_card.id, player2_played_card.id]
                 )
             elif player1_card_value < player2_card_value:
                 for card_id in player1_draw_3_face_down:
                     player2_deck.append(card_id)
                 for card_id in player2_draw_3_face_down:
                     player2_deck.append(card_id)
-                player2_deck.append(str(player1_played_card.id))
-                player2_deck.append(str(player2_played_card.id))
-                player2_deck = fake.random_elements(
-                    elements=player2_deck,
-                    length=len(player2_deck),
-                    unique=True
+                player2_deck = skirmish(
+                    player2_deck,
+                    [player2_played_card.id, player1_played_card.id]
                 )
 
     # db.session.commit()
-    return jsonify([player1_deck, player2_deck, player1_played_card.to_dict(), player2_played_card.to_dict(), player1_card_value, player2_card_value, player1_card_value > player2_card_value])
+    return jsonify([player1_deck, player2_deck, player1_played_card.to_dict(), player2_played_card.to_dict(), player1_card_value, player2_card_value, request.form["user_id"]])
