@@ -11,10 +11,11 @@ class War(db.Model):
     player2_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     player1_deck = db.Column(db.String)
     player2_deck = db.Column(db.String)
-    player1_played_card = db.Column(db.String)
-    player2_played_card = db.Column(db.String)
+    player1_played_card = db.Column(db.Integer, db.ForeignKey('cards.id'))
+    player2_played_card = db.Column(db.Integer, db.ForeignKey('cards.id'))
     created_at = db.Column(db.DateTime, default=datetime.now())
 
+    # methods
     def to_dict(self):
         return {
             "id": self.id,

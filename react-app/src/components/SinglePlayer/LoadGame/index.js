@@ -30,17 +30,15 @@ function LoadGame(props) {
     <>
       {Boolean(savedGames) &&
         savedGames.map((game, idx) => (
-          <>
-            <div key={idx} onClick={() => setSelectedGame(game.id)}>
-              {`Game: ${game.id} // Started at: ${game.createdAt}`}
-            </div>
-          </>
+          <div key={idx} onClick={() => setSelectedGame(game.id)}>
+            {`Game: ${game.id} // Started at: ${game.createdAt}`}
+          </div>
         ))
       }
+      <button type="button" onClick={handleGoBack}>Menu</button>
       {Boolean(selectedGame) &&
         <button type="button" onClick={handleLoadGame}>{`Load Game ${selectedGame}`}</button>
       }
-      <button type="button" onClick={handleGoBack}>Menu</button>
     </>
   );
 }

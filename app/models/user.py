@@ -1,4 +1,5 @@
 from .db import db
+from .war import War
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
@@ -13,6 +14,21 @@ class User(db.Model, UserMixin):
     wins = db.Column(db.Integer, default=0)
     losses = db.Column(db.Integer, default=0)
 
+    # associations
+    user1_wars = db.relationship(
+        War,
+        backref='war_user1',
+        foreign_keys=[War.player1_id],
+        cascade='all, delete'
+    )
+    user2_wars = db.relationship(
+        War,
+        backref='war_user2',
+        foreign_keys=[War.player2_id],
+        cascade='all, delete'
+    )
+
+    # methods / getters / setters
     @property
     def password(self):
         return self.hashed_password

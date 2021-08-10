@@ -2,10 +2,6 @@
 from app.models import db, Card
 
 cards = [
-    'A-C',
-    'A-D',
-    'A-H',
-    'A-S',
     '2-C',
     '2-D',
     '2-H',
@@ -54,13 +50,13 @@ cards = [
     'K-D',
     'K-H',
     'K-S',
+    'A-C',
+    'A-D',
+    'A-H',
+    'A-S'
 ]
 
 cards_img = [
-    "../../images/cards/AC.png",
-    "../../images/cards/AD.png",
-    "../../images/cards/AH.png",
-    "../../images/cards/AS.png",
     "../../images/cards/2C.png",
     "../../images/cards/2D.png",
     "../../images/cards/2H.png",
@@ -109,6 +105,10 @@ cards_img = [
     "../../images/cards/KD.png",
     "../../images/cards/KH.png",
     "../../images/cards/KS.png",
+    "../../images/cards/AC.png",
+    "../../images/cards/AD.png",
+    "../../images/cards/AH.png",
+    "../../images/cards/AS.png"
 ]
 
 
